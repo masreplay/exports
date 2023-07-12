@@ -17,9 +17,9 @@ Future<void> export() async {
       ? ExportYaml.fromFile(exportsFile)
       : ExportYaml.defaultValue;
 
-  stderr.writeln("exports:");
+  stderr.writeln("export:");
   stderr.writeln(content.exports.map((e) => "- $e").join('\n'));
-  stderr.writeln("ignores:");
+  stderr.writeln("ignore:");
   stderr.writeln(content.ignores.map((e) => "- $e").join('\n'));
 
   final List<String> exports = content.exports;

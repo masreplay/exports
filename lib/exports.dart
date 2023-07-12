@@ -7,6 +7,7 @@ import 'package:path/path.dart' as p;
 
 import 'project_type.dart';
 
+/// project type argument
 const String projectType = "project-type";
 
 void main(List<String> arguments) {
@@ -23,6 +24,7 @@ void main(List<String> arguments) {
   );
 }
 
+/// export files for dart project
 Future<void> export({required DartProjectType type}) async {
   final exportsFile = File(ExportYaml.filename);
 
@@ -64,6 +66,10 @@ void createExportFilesRecursively(Directory dir, List<Glob> ignoreGlobs) {
   }
 }
 
+/// create export file
+/// Example:
+/// - dir: lib/models/
+/// - file: lib/models/models.dart
 void createExportFile(Directory dir, List<Glob> ignoreGlobs) {
   final files = dir.listSync(recursive: false);
 
@@ -95,6 +101,10 @@ void createExportFile(Directory dir, List<Glob> ignoreGlobs) {
   sink.close();
 }
 
+/// Check if file name match directory name
+/// Example:
+///  - dir: lib/models/
+///  - file: lib/models/models.dart
 bool matchDirAndFileName(Directory dir, File file) {
   return file.path.split('/').last.split('.').first == dir.path.split('/').last;
 }

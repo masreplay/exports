@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:yaml/yaml.dart';
 
+
+/// Project Type
 enum DartProjectType {
   flutter,
   dart,

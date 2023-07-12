@@ -6,3 +6,6 @@ library;
 export 'src/example_base.dart';
 
 // TODO: Export any libraries intended for clients of this package.
+
+export 'src/service/service.dart';
+

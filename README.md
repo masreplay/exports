@@ -26,7 +26,7 @@ dart pub global activate exports
 exports
 ```
 
-In this example, the tool will scan through the lib directory and create an ```*.dart``` file in each directory with export statements for all files in that directory. It will not include any files matching the patterns in the ignores list.
+In this example, the tool will scan through the lib directory and create a `*``.dart` file in each directory with export statements for all files in that directory. It will not include any files matching the patterns in the ignores list.
 
 ## Configuration
 ```yaml
@@ -38,6 +38,21 @@ ignore:
   - "**/*.freezed.dart"
   - "**/*.gr.dart"
   - "**/_*.dart"
+```
+
+## TODO
+- [ ] Add watch files change mode
+- [ ] Add export from the command line for example
+  ```sh
+  exports --export "models"
+  ```
+- [ ] Add ignore the command line for example
+  ```sh
+  exports --ignore "**/*.g.dart"
+  ```
+
+## License
+
 ```
 MIT License
 

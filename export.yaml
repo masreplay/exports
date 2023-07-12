@@ -1,8 +1,8 @@
 export:
   - lib/
 
-ignore: 
-  - '**/*g.dart'
-  - '**/*.freezed.dart'
-  - '**/*.gr.dart'
-  - '**/*._.dart'
+ignore:
+  - "**/*.g.dart"
+  - "**/*.freezed.dart"
+  - "**/*.gr.dart"
+  - "**/_*.dart"

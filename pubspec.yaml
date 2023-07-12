@@ -1,6 +1,6 @@
 name: exports
-description: A sample command-line application.
-version: 1.0.0
+description: A command-line tool to generate exports files for dart follow the convention of the dart docs.
+version: 0.1.0
 repository: https://github.com/masreplay/exports
 
 environment:

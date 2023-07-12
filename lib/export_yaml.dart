@@ -16,15 +16,14 @@ class ExportYaml {
   static const defaultValue = ExportYaml(
     exports: ["lib/"],
     ignores: [
-      "*.g.dart",
-      "*.freezed.dart",
-      "*.gr.dart",
-      "_*",
+      "**/*.g.dart",
+      "**/*.freezed.dart",
+      "**/*.gr.dart",
+      "**/_*",
     ],
   );
 
-  factory ExportYaml.fromFile(String path) {
-    final file = File(path);
+  factory ExportYaml.fromFile(File file) {
     final content = file.readAsStringSync();
     final yaml = loadYaml(content) as YamlMap;
 

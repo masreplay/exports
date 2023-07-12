@@ -10,13 +10,17 @@ void main(List<String> arguments) {
   export();
 }
 
-Future<void> export([String? filepath]) async {
-  final content = filepath == null
-      ? ExportYaml.defaultValue
-      : ExportYaml.fromFile(filepath);
+Future<void> export() async {
+  final exportsFile = File('./export.yaml');
 
-  print(content.exports);
-  print(content.ignores);
+  final content = exportsFile.existsSync()
+      ? ExportYaml.fromFile(exportsFile)
+      : ExportYaml.defaultValue;
+
+  print("exports:");
+  print(content.exports.map((e) => "- $e").join('\n'));
+  print("ignores:");
+  print(content.ignores.map((e) => "- $e").join('\n'));
 
   final List<String> exports = content.exports;
   final List<String> ignores = content.ignores;
@@ -24,8 +28,12 @@ Future<void> export([String? filepath]) async {
   final ignoreGlobs = ignores.map((path) => Glob(path)).toList();
 
   for (var path in exports) {
-    var dir = Directory(path);
-    createExportFilesRecursively(dir, ignoreGlobs);
+    try {
+      var dir = Directory(path);
+      createExportFilesRecursively(dir, ignoreGlobs);
+    } on PathNotFoundException catch (e) {
+      print(e);
+    }
   }
 }
 
@@ -50,9 +58,7 @@ void createExportFile(Directory dir, List<Glob> ignoreGlobs) {
       return false;
     }
 
-    final isIgnore = !ignoreGlobs.any((glob) => glob.matches(file.path));
-
-    print('isIgnore: $isIgnore, ${file.path}');
+    final isIgnore = !ignoreGlobs.any((Glob glob) => glob.matches(file.path));
 
     return isIgnore;
   }).toList();

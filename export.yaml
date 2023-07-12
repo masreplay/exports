@@ -1,5 +1,8 @@
 export:
-  - lib/**
+  - lib/
 
 ignore: 
-  - models/
+  - '**/*g.dart'
+  - '**/*.freezed.dart'
+  - '**/*.gr.dart'
+  - '**/*._.dart'

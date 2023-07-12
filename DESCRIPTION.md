@@ -28,3 +28,5 @@ exports
 the tool will generate files in each directory that exports the files in it
 all you have to do is write the name of the directory you want to add
 it works on flutter and dart
+
+#flutter #dart #flutterdev #fluttercommunity

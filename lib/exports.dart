@@ -11,7 +11,7 @@ void main(List<String> arguments) {
 }
 
 Future<void> export() async {
-  final exportsFile = File('./export.yaml');
+  final exportsFile = File(ExportYaml.filename);
 
   final content = exportsFile.existsSync()
       ? ExportYaml.fromFile(exportsFile)

@@ -1,11 +1,6 @@
-import 'package:example/src/service/clients/users_client.dart';
-import 'package:example/src/service/clients/stores_client.dart';
-import 'package:example/src/service/models/user.dart';
-import 'package:example/src/service/models/category.dart';
-import 'package:example/src/service/models/store.dart';
-import 'package:example/src/service/models/product.dart';
+import 'package:example/src/service/service.dart';
 
-void main(List<String> arguments) {
+void main() {
   final usersClient = UsersClient();
   final storesClient = StoresClient();
 

@@ -1,6 +1,5 @@
-/// Support for doing something awesome.
+/// Test for flutter exports command
 ///
-/// More dartdocs go here.
 library;
 
 export 'src/example_base.dart';

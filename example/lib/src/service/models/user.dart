@@ -5,5 +5,5 @@ class User {
   });
 
   final String name;
-  final String age;
+  final int age;
 }

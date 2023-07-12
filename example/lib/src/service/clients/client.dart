@@ -7,15 +7,15 @@ class Client<T> {
     throw UnimplementedError();
   }
 
-  Future<T> create() {
+  Future<T> create(T body) {
     throw UnimplementedError();
   }
 
-  Future<T> update() {
+  Future<T> update(T body) {
     throw UnimplementedError();
   }
 
-  Future<void> delete() {
+  Future<void> delete(T body) {
     throw UnimplementedError();
   }
 }

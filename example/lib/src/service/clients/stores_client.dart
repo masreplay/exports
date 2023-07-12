@@ -1,31 +1,31 @@
 import 'package:example/src/service/clients/client.dart';
 import 'package:example/src/service/models/models.dart';
 
-class UsersClient implements Client<User> {
-  const UsersClient();
+class StoresClient implements Client<Store> {
+  const StoresClient();
 
   @override
-  Future<User> create(User body) {
+  Future<Store> create(Store body) {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> delete(User body) {
+  Future<void> delete(Store body) {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<User>> getAll() {
+  Future<List<Store>> getAll() {
     throw UnimplementedError();
   }
 
   @override
-  Future<User> getOne() {
+  Future<Store> getOne() {
     throw UnimplementedError();
   }
 
   @override
-  Future<User> update(User body) {
+  Future<Store> update(Store body) {
     throw UnimplementedError();
   }
 }

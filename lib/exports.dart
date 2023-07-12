@@ -1,22 +1,36 @@
 import 'dart:io';
 
+import 'package:args/args.dart';
 import 'package:exports/export_yaml.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart' as p;
 
-void main(List<String> arguments) {
-  exitCode = 0;
+import 'project_type.dart';
 
-  export();
+const String projectType = "project-type";
+
+void main(List<String> arguments) {
+  exitCode = 0; // presume success
+  final parser = ArgParser()
+    ..addFlag(projectType, negatable: false, abbr: 'type');
+
+  final ArgResults argResults = parser.parse(arguments);
+
+  export(
+    type: DartProjectType.fromArgs(
+      argResults[projectType] ?? DartProjectType.unknown,
+    ),
+  );
 }
 
-Future<void> export() async {
+Future<void> export({required DartProjectType type}) async {
   final exportsFile = File(ExportYaml.filename);
 
   final content = exportsFile.existsSync()
       ? ExportYaml.fromFile(exportsFile)
       : ExportYaml.defaultValue;
 
+  stderr.writeln("project type: ${type.name}");
   stderr.writeln("export:");
   stderr.writeln(content.exports.map((e) => "- $e").join('\n'));
   stderr.writeln("ignore:");

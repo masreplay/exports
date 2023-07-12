@@ -50,6 +50,7 @@ ignore:
   ```sh
   exports --ignore "**/*.g.dart"
   ```
+- [ ] support dart package export
 
 ## License
 

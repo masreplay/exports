@@ -50,7 +50,11 @@ void createExportFile(Directory dir, List<Glob> ignoreGlobs) {
       return false;
     }
 
-    return !ignoreGlobs.any((glob) => glob.matches(file.path));
+    final isIgnore = !ignoreGlobs.any((glob) => glob.matches(file.path));
+
+    print('isIgnore: $isIgnore, ${file.path}');
+
+    return isIgnore;
   }).toList();
 
   final exportFile = File('${dir.path}/${dir.path.split("/").last}.dart');

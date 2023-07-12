@@ -1,48 +1,66 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:args/args.dart';
-
-const lineNumber = 'line-number';
+import 'package:exports/export_yaml.dart';
+import 'package:glob/glob.dart';
+import 'package:path/path.dart' as path;
 
 void main(List<String> arguments) {
   exitCode = 0; // presume success
-  final parser = ArgParser()..addFlag(lineNumber, negatable: false, abbr: 'n');
 
-  ArgResults argResults = parser.parse(arguments);
-  final paths = argResults.rest;
-
-  dcat(paths, showLineNumbers: argResults[lineNumber] as bool);
+  export();
 }
 
-Future<void> dcat(List<String> paths, {bool showLineNumbers = false}) async {
-  if (paths.isEmpty) {
-    // No files provided as arguments. Read from stdin and print each line.
-    await stdin.pipe(stdout);
-  } else {
-    for (final path in paths) {
-      var lineNumber = 1;
-      final lines = utf8.decoder
-          .bind(File(path).openRead())
-          .transform(const LineSplitter());
-      try {
-        await for (final line in lines) {
-          if (showLineNumbers) {
-            stdout.write('${lineNumber++} ');
-          }
-          stdout.writeln(line);
-        }
-      } catch (_) {
-        await _handleError(path);
-      }
+Future<void> export([String? filepath]) async {
+  final content = filepath == null
+      ? ExportYaml.defaultValue
+      : ExportYaml.fromFile(filepath);
+
+  print(content.exports);
+
+  final List<String> exports = content.exports;
+  final List<String> ignores = content.ignores;
+
+  print('1 + 1 = ...');
+
+  final ignoreGlobs = ignores.map((path) => Glob(path)).toList();
+
+  for (var path in exports) {
+    final dir = Directory(path);
+    createExportFile(dir, ignoreGlobs);
+  }
+}
+
+void createExportFile(Directory dir, List<Glob> ignoreGlobs) {
+  // Recursively loop through the files and subdirectories
+  final files = dir.listSync(recursive: true);
+
+  // Filter out ignored files and directories
+  final filteredFiles = files.where((file) {
+    return !ignoreGlobs.any((glob) => glob.matches(file.path));
+  }).toList();
+
+  // Create new .dart file for exports
+  final exportFile =
+      File(path.join(dir.path, '${dir.path.split("/").last}.dart'));
+
+  print(exportFile.path);
+
+  exportFile.createSync();
+
+  // Write the exports to the new file
+  final sink = exportFile.openWrite();
+
+  for (var entity in filteredFiles) {
+    final path =
+        entity.path.replaceFirst('${dir.path}/', ''); // Get relative path
+
+    if (entity is File) {
+      sink.write('export "$path";\n');
+    } else if (entity is Directory) {
+      sink.write('export "$path/${path.split("/").last}.dart";\n');
     }
   }
-}
 
-Future<void> _handleError(String path) async {
-  if (await FileSystemEntity.isDirectory(path)) {
-    stderr.writeln('error: $path is a directory');
-  } else {
-    exitCode = 2;
-  }
+  // Close the IOSink to free system resources.
+  sink.close();
 }

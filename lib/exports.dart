@@ -17,10 +17,10 @@ Future<void> export() async {
       ? ExportYaml.fromFile(exportsFile)
       : ExportYaml.defaultValue;
 
-  print("exports:");
-  print(content.exports.map((e) => "- $e").join('\n'));
-  print("ignores:");
-  print(content.ignores.map((e) => "- $e").join('\n'));
+  stderr.writeln("exports:");
+  stderr.writeln(content.exports.map((e) => "- $e").join('\n'));
+  stderr.writeln("ignores:");
+  stderr.writeln(content.ignores.map((e) => "- $e").join('\n'));
 
   final List<String> exports = content.exports;
   final List<String> ignores = content.ignores;
@@ -32,7 +32,7 @@ Future<void> export() async {
       var dir = Directory(path);
       createExportFilesRecursively(dir, ignoreGlobs);
     } on PathNotFoundException catch (e) {
-      print(e);
+      stderr.writeln(e);
     }
   }
 }

@@ -13,13 +13,17 @@ class ExportYaml {
 
   static const String filename = 'export.yaml';
 
-  static const defaultValue = ExportYaml(
+  static const ExportYaml defaultValue = ExportYaml(
     exports: ["lib/"],
     ignores: [
       "**/*.g.dart",
       "**/*.freezed.dart",
       "**/*.gr.dart",
+      "**/*.data.dart",
+      "**/*.fields.dart",
+      "**/*.arb",
       "**/_*",
+      "**/.DS_Store"
     ],
   );
 

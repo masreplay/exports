@@ -1,10 +1,10 @@
 name: exports
 description: A command-line tool to generate exports files for dart follow the convention of the dart docs.
-version: 0.2.0
+version: 0.2.1
 repository: https://github.com/masreplay/exports
 
 environment:
-  sdk: ^3.0.5
+  sdk: ^3.3.0
 
 # Add regular dependencies here.
 dependencies:

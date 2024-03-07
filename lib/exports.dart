@@ -88,13 +88,17 @@ void createExportFile(Directory dir, List<Glob> ignoreGlobs) {
 
   final sink = exportFile.openWrite();
 
+  const String quote = "'";
+
   for (var entity in filteredFiles) {
     final path = entity.path.replaceFirst('${dir.path}/', '');
 
     if (entity is File) {
-      sink.write('export "$path";\n');
+      sink.write("""export $quote$path$quote;\n""");
     } else if (entity is Directory) {
-      sink.write('export "$path/${path.split("/").last}.dart";\n');
+      sink.write(
+        """export $quote$path/${path.split("/").last}.dart$quote;\n""",
+      );
     }
   }
 
